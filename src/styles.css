@@ -159,11 +159,11 @@ img {
   color: #344b40;
 }
 
-.main-nav > a:not(.nav-connect) {
+.main-nav > a:not(.nav-connect):not(.nav-demo) {
   position: relative;
 }
 
-.main-nav > a:not(.nav-connect)::after {
+.main-nav > a:not(.nav-connect):not(.nav-demo)::after {
   content: '';
   position: absolute;
   right: 0;
@@ -177,6 +177,18 @@ img {
 
 .main-nav > a:hover::after {
   transform: scaleX(1);
+}
+
+.nav-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: 1px solid rgba(23, 63, 49, 0.22);
+  border-radius: 14px;
+  background: var(--sage);
+  color: var(--forest-deep);
+  font-weight: 700;
 }
 
 .nav-connect {
@@ -1474,6 +1486,7 @@ h3 {
     padding: 12px 10px;
   }
 
+  .nav-demo,
   .nav-connect {
     justify-content: center;
     margin-top: 5px;

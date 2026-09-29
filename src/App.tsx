@@ -21,6 +21,7 @@ import { Link, Route, Routes } from 'react-router-dom'
 import { PipMark } from './components/PipMark'
 
 const instagramUrl = 'https://www.instagram.com/pipsavings/'
+const demoAppUrl = 'https://pip-finance.vercel.app'
 
 function InstagramIcon({ size = 18 }: { size?: number }) {
   return (
@@ -86,6 +87,9 @@ function Header() {
         <a href="#features" onClick={closeMenu}>Features</a>
         <a href="#privacy" onClick={closeMenu}>Privacy</a>
         <Link to="/faq" onClick={closeMenu}>FAQ</Link>
+        <a className="nav-demo" href={demoAppUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>
+          Demo <ArrowRight size={15} />
+        </a>
         <a className="nav-connect" href={instagramUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>
           Instagram <ArrowRight size={15} />
         </a>

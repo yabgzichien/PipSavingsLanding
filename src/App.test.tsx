@@ -38,6 +38,9 @@ describe('Pip landing page', () => {
     expect(faqLinks.length).toBeGreaterThan(0)
     faqLinks.forEach((link) => expect(link).toHaveAttribute('href', '/faq'))
     expect(
+      screen.getByRole('link', { name: /^demo/i }),
+    ).toHaveAttribute('href', 'https://pip-finance.vercel.app')
+    expect(
       screen.getByRole('link', { name: /connect with us/i }),
     ).toHaveAttribute('href', 'https://www.instagram.com/pipsavings/')
   })
