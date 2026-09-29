@@ -62,6 +62,26 @@ describe('Pip landing page', () => {
     expect(video.tagName.toLowerCase()).toBe('video')
   })
 
+  it('shows the autoplaying product tour before the feature details', () => {
+    const { container } = renderRoute('/')
+
+    const demoHeading = screen.getByRole('heading', { name: /see pip in action/i })
+    const demo = screen.getByTitle(/pip product demo/i)
+    const askPipHeading = screen.getByRole('heading', { name: /ask once/i })
+
+    expect(demo.tagName.toLowerCase()).toBe('iframe')
+    expect(demo).toHaveAttribute(
+      'src',
+      expect.stringContaining('youtube-nocookie.com/embed/4nHo8hV8nbw'),
+    )
+    expect(demo).toHaveAttribute('src', expect.stringContaining('autoplay=1'))
+    expect(demo).toHaveAttribute('src', expect.stringContaining('mute=1'))
+    expect(
+      demoHeading.compareDocumentPosition(askPipHeading) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy()
+    expect(container.querySelector('.product-demo')).toContainElement(demo)
+  })
+
   it('renders the authentic Pip vector logo across the page', () => {
     renderRoute('/')
 
@@ -70,4 +90,3 @@ describe('Pip landing page', () => {
     expect(pipLogos[0].tagName.toLowerCase()).toBe('svg')
   })
 })
-

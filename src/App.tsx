@@ -276,6 +276,32 @@ function FeatureSection({
   )
 }
 
+function ProductDemo() {
+  const reducedMotion = usePrefersReducedMotion()
+  const autoplay = reducedMotion ? '0' : '1'
+  const demoUrl = `https://www.youtube-nocookie.com/embed/4nHo8hV8nbw?autoplay=${autoplay}&mute=1&playsinline=1&rel=0`
+
+  return (
+    <section className="product-demo">
+      <div className="page-shell product-demo__inner">
+        <div className="product-demo__copy reveal">
+          <h2>See Pip in action.</h2>
+        </div>
+        <div className="product-demo__frame reveal">
+          <iframe
+            src={demoUrl}
+            title="Pip product demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            loading="lazy"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function FeatureStory() {
   return (
     <div id="features" className="feature-story">
@@ -284,6 +310,8 @@ function FeatureStory() {
         <h2>Start with a question.<br />Finish with a clearer picture.</h2>
         <p>Pip connects the small jobs that usually live in separate apps, notes and spreadsheets.</p>
       </section>
+
+      <ProductDemo />
 
       <FeatureSection
         eyebrow="Ask Pip"
