@@ -75,7 +75,7 @@ describe('Pip landing page', () => {
     expect(demo.tagName.toLowerCase()).toBe('iframe')
     expect(demo).toHaveAttribute(
       'src',
-      expect.stringContaining('youtube-nocookie.com/embed/4nHo8hV8nbw'),
+      expect.stringContaining('youtube-nocookie.com/embed/gdIc29KZZ9s'),
     )
     expect(demo).toHaveAttribute('src', expect.stringContaining('autoplay=1'))
     expect(demo).toHaveAttribute('src', expect.stringContaining('mute=1'))

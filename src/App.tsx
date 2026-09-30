@@ -283,7 +283,7 @@ function FeatureSection({
 function ProductDemo() {
   const reducedMotion = usePrefersReducedMotion()
   const autoplay = reducedMotion ? '0' : '1'
-  const demoUrl = `https://www.youtube-nocookie.com/embed/4nHo8hV8nbw?autoplay=${autoplay}&mute=1&playsinline=1&rel=0`
+  const demoUrl = `https://www.youtube-nocookie.com/embed/gdIc29KZZ9s?autoplay=${autoplay}&mute=1&playsinline=1&rel=0`
 
   return (
     <section className="product-demo">
