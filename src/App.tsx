@@ -236,11 +236,6 @@ function Hero() {
               </a>
               <GooglePlayBadge />
             </div>
-            <div className="hero__proof" aria-label="Pip product principles">
-              <span><LockKeyhole size={15} /> Local-first ledger</span>
-              <span>No account required</span>
-              <span>You confirm every change</span>
-            </div>
           </div>
         </div>
         <HeroDemo />

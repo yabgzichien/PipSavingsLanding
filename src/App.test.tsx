@@ -25,6 +25,10 @@ describe('Pip landing page', () => {
     expect(container.querySelector('.hero__header')).toBeInTheDocument()
     expect(container.querySelector('.hero__details')).toBeInTheDocument()
     expect(container.querySelector('.hero-demo')).toBeInTheDocument()
+    expect(container.querySelector('.hero__proof')).not.toBeInTheDocument()
+    expect(screen.queryByText(/local-first ledger/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/no account required/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/you confirm every change/i)).not.toBeInTheDocument()
     expect(document.title).toBe('Pip')
     expect(
       screen.queryByText(/know your money without turning it into a second job/i),

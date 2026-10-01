@@ -390,27 +390,6 @@ h3 {
   line-height: 1.05;
 }
 
-.hero__proof {
-  margin-top: 31px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 11px 20px;
-  color: #5a6861;
-  font-size: 13px;
-}
-
-.hero__proof span {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.hero__proof span + span::before {
-  content: '·';
-  margin-right: 11px;
-  color: var(--clay);
-}
-
 .hero-demo {
   position: relative;
   display: grid;
@@ -1618,16 +1597,6 @@ h3 {
     width: 100%;
   }
 
-  .hero__proof {
-    margin-top: 22px;
-    max-width: 360px;
-    justify-content: center;
-  }
-
-  .hero__proof span + span::before {
-    display: none;
-  }
-
   .story-intro {
     padding: 90px 0 65px;
   }
@@ -1815,4 +1784,3 @@ h3 {
     transition: none !important;
   }
 }
-
