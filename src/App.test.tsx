@@ -45,6 +45,21 @@ describe('Pip landing page', () => {
     ).toHaveAttribute('href', 'https://www.instagram.com/pipsavings/')
   })
 
+  it('links each Google Play download badge to the Pip app listing', () => {
+    renderRoute('/')
+
+    const playStoreLinks = screen.getAllByRole('link', {
+      name: /available on google play/i,
+    })
+    expect(playStoreLinks.length).toBeGreaterThan(0)
+    playStoreLinks.forEach((link) =>
+      expect(link).toHaveAttribute(
+        'href',
+        'https://play.google.com/store/apps/details?id=com.yabg.pip',
+      ),
+    )
+  })
+
   it('renders a useful FAQ placeholder route', () => {
     renderRoute('/faq')
 

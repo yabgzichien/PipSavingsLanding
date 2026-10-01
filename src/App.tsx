@@ -22,6 +22,7 @@ import { PipMark } from './components/PipMark'
 
 const instagramUrl = 'https://www.instagram.com/pipsavings/'
 const demoAppUrl = 'https://pip-finance.vercel.app'
+const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.yabg.pip'
 
 function InstagramIcon({ size = 18 }: { size?: number }) {
   return (
@@ -100,13 +101,19 @@ function Header() {
 
 function GooglePlayBadge() {
   return (
-    <div className="play-badge" aria-label="Available on Google Play">
+    <a
+      className="play-badge"
+      href={playStoreUrl}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Available on Google Play"
+    >
       <span className="play-badge__triangle" aria-hidden="true" />
       <span>
         <small>Available on</small>
         <strong>Google Play</strong>
       </span>
-    </div>
+    </a>
   )
 }
 
@@ -480,7 +487,7 @@ function ClosingSection() {
         <PipMark size={72} />
         <p className="section-label">Pip is ready when you are</p>
         <h2>Less catching up.<br />More knowing where you stand.</h2>
-        <p>Pip is available on Google Play. The store link is coming soon.</p>
+        <p>Pip is available on Google Play.</p>
         <div className="closing-actions">
           <GooglePlayBadge />
           <Link className="button button--outline" to="/faq">FAQ <ChevronRight size={17} /></Link>
