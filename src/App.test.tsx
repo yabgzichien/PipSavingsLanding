@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { SiteRoutes } from './App'
 
@@ -64,15 +64,43 @@ describe('Pip landing page', () => {
     )
   })
 
-  it('renders a useful FAQ placeholder route', () => {
+  it('renders the privacy and AI FAQ as accessible disclosure rows', () => {
     renderRoute('/faq')
 
     expect(
-      screen.getByRole('heading', { name: /questions deserve clear answers/i }),
+      screen.getByRole('heading', { name: /your money stays yours/i }),
     ).toBeInTheDocument()
+    expect(screen.getAllByRole('group')).toHaveLength(10)
+    expect(
+      screen.getByText(/pip stores your transactions, receipts, budgets/i),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/pip does not sell your data/i)).toBeInTheDocument()
+    expect(
+      screen.getByText(/settings → danger zone → reset all data/i),
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByRole('link', { name: /set up ai and understand your privacy/i }),
+    ).not.toBeInTheDocument()
     expect(screen.getByRole('link', { name: /back to pip/i })).toHaveAttribute(
       'href',
       '/',
+    )
+  })
+
+  it('uses the full site navigation on the FAQ route', () => {
+    renderRoute('/faq')
+
+    const nav = screen.getByRole('navigation', { name: /main navigation/i })
+    expect(within(nav).getByRole('link', { name: /^features$/i })).toHaveAttribute('href', '/#features')
+    expect(within(nav).getByRole('link', { name: /^privacy$/i })).toHaveAttribute('href', '/#privacy')
+    expect(within(nav).getByRole('link', { name: /^faq$/i })).toHaveAttribute('href', '/faq')
+    expect(within(nav).getByRole('link', { name: /^demo/i })).toHaveAttribute(
+      'href',
+      'https://pip-finance.vercel.app',
+    )
+    expect(within(nav).getByRole('link', { name: /^instagram/i })).toHaveAttribute(
+      'href',
+      'https://www.instagram.com/pipsavings/',
     )
   })
 

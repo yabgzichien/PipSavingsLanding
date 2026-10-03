@@ -3,21 +3,22 @@ import {
   ArrowLeft,
   ArrowRight,
   Bot,
-  Camera,
   Check,
+  ChevronDown,
   ChevronRight,
+  ExternalLink,
   LockKeyhole,
   Menu,
   MessageCircleMore,
   ReceiptText,
   ScanLine,
+  ShieldCheck,
   Sparkles,
-  Users,
   WalletCards,
   X,
 } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import { PipMark } from './components/PipMark'
 
 const instagramUrl = 'https://www.instagram.com/pipsavings/'
@@ -64,12 +65,15 @@ type FeatureSectionProps = {
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { pathname } = useLocation()
+  const onHome = pathname === '/'
+  const sectionHref = (id: string) => (onHome ? `#${id}` : `/#${id}`)
 
   const closeMenu = () => setMenuOpen(false)
 
   return (
     <header className="site-header">
-      <a className="brand" href="#top" aria-label="Pip home" onClick={closeMenu}>
+      <a className="brand" href={onHome ? '#top' : '/'} aria-label="Pip home" onClick={closeMenu}>
         <PipMark compact />
         <span>Pip</span>
       </a>
@@ -85,8 +89,8 @@ function Header() {
       </button>
 
       <nav className={menuOpen ? 'main-nav main-nav--open' : 'main-nav'} aria-label="Main navigation">
-        <a href="#features" onClick={closeMenu}>Features</a>
-        <a href="#privacy" onClick={closeMenu}>Privacy</a>
+        <a href={sectionHref('features')} onClick={closeMenu}>Features</a>
+        <a href={sectionHref('privacy')} onClick={closeMenu}>Privacy</a>
         <Link to="/faq" onClick={closeMenu}>FAQ</Link>
         <a className="nav-demo" href={demoAppUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>
           Demo <ArrowRight size={15} />
@@ -514,6 +518,9 @@ function Footer() {
 function HomePage() {
   useEffect(() => {
     document.title = 'Pip'
+    const id = window.location.hash.slice(1)
+    if (!id) return
+    document.getElementById(id)?.scrollIntoView()
   }, [])
   useScrollReveal()
 
@@ -534,26 +541,74 @@ function FaqPage() {
     document.title = 'FAQ | Pip'
   }, [])
 
+  const items = [
+    {
+      question: 'Where does Pip store my financial data?',
+      answer: <>Pip stores your transactions, receipts, budgets, accounts, and tax tags in a database on your Android device. You do not need a Pip account, and Pip does not keep a cloud copy of your ledger. The local database is not encrypted by Pip, so protect access to your phone and keep a backup if you need one.</>,
+    },
+    {
+      question: 'When does data leave my device?',
+      answer: <>Your ledger stays on your device during normal bookkeeping. Data can leave when you choose a connected feature such as Ask Pip, receipt scanning, Google Drive backup, live prices, a bug report, or a purchase. Production builds also have crash diagnostics on by default; you can turn them off under <strong>Settings → Data → Crash Diagnostics</strong>.</>,
+    },
+    {
+      question: 'Does Pip sell my data or show ads?',
+      answer: <>No. Pip does not sell your data and does not show ads.</>,
+    },
+    {
+      question: 'Can I use Pip without AI or an API key?',
+      answer: <>Yes. You can record transactions, manage budgets, track accounts and net worth, split bills, and use the dashboard without connecting an AI provider. Ask Pip and AI-powered reading of receipts, statements, balances, or holdings need an internet connection and an AI service.</>,
+    },
+    {
+      question: 'What is BYOK, and why would I use it?',
+      answer: <>BYOK means “bring your own key.” An API key is a private code created in your Gemini, Groq, or OpenRouter account. It lets Pip send your AI request directly to the provider you chose, while you control the provider account and its usage limits.</>,
+    },
+    {
+      question: 'How do I connect my own API key?',
+      answer: <>Open <strong>Settings → API keys</strong>, choose Gemini, Groq, or OpenRouter, and follow the link to create a key. Copy the key into Pip and tap <strong>Save key</strong>. Pip detects the provider and checks that the key works. Never share your API key with another person.</>,
+    },
+    {
+      question: 'What can I do with Ask Pip?',
+      answer: <>Ask Pip can open the right part of the app, prepare an entry for you to review, read supported receipts and statements, and answer supported spending questions using calculations from your local ledger. Try “Lunch 12,” “Show what I’m owed,” or “Show my transactions this month.”</>,
+    },
+    {
+      question: 'Can Ask Pip change my financial records without asking me?',
+      answer: <>Ask Pip can prepare an expense, repayment, split, or scan, but you review the details before a financial record is saved. It may change an app preference, such as light or dark mode, when you ask it to. It cannot move money or make bank transactions.</>,
+    },
+    {
+      question: 'Does using my own API key cost extra?',
+      answer: <>Your AI provider sets its own free allowance, usage limits, and prices, and these can change. Any provider charges are tied to your provider account and are separate from Pip Pro. Check the provider’s pricing before using the key heavily.</>,
+    },
+    {
+      question: 'How do I delete my data and disconnect AI?',
+      answer: <>Use <strong>Settings → Danger zone → Reset all data</strong>, or uninstall Pip, to delete local records. Remove keys under <strong>Settings → API keys</strong>, then revoke them in the provider account. Delete Drive backups from the connected Google account separately.</>,
+    },
+  ]
+
   return (
-    <main className="faq-page">
-      <div className="faq-page__topbar">
-        <Link className="brand" to="/"><PipMark compact /><span>Pip</span></Link>
-        <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <ArrowRight size={15} /></a>
-      </div>
-      <div className="faq-page__content">
-        <div className="faq-page__icon"><MessageCircleMore size={31} /></div>
-        <p className="section-label">Pip FAQ</p>
-        <h1>Questions deserve clear answers.</h1>
-        <p>We are putting the FAQ together. For now, you can explore the app features or follow Pip on Instagram for updates.</p>
-        <div className="faq-page__actions">
-          <Link className="button button--primary" to="/"><ArrowLeft size={17} /> Back to Pip</Link>
-          <a className="button button--outline" href={instagramUrl} target="_blank" rel="noreferrer"><InstagramIcon size={17} /> Instagram</a>
+    <div className="site-page">
+      <Header />
+      <main className="faq-page">
+        <header className="faq-hero">
+          <div className="faq-page__icon"><ShieldCheck size={31} /></div>
+          <p className="section-label">Privacy &amp; AI</p>
+          <h1 id="faq-heading">Your money stays yours.</h1>
+        </header>
+
+        <section className="faq-list" aria-labelledby="faq-heading">
+          {items.map((item, index) => (
+            <details className="faq-item" key={item.question} open={index === 0}>
+              <summary><span>{item.question}</span><ChevronDown size={20} /></summary>
+              <div className="faq-item__answer"><p>{item.answer}</p></div>
+            </details>
+          ))}
+        </section>
+
+        <div className="faq-page__bottom">
+          <Link className="button button--outline" to="/"><ArrowLeft size={17} /> Back to Pip</Link>
+          <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <ExternalLink size={14} /></a>
         </div>
-      </div>
-      <div className="faq-page__rail" aria-hidden="true">
-        <span><Camera size={19} /></span><i /><span><Users size={19} /></span><i /><span><WalletCards size={19} /></span>
-      </div>
-    </main>
+      </main>
+    </div>
   )
 }
 
