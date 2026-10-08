@@ -139,4 +139,50 @@ describe('Pip landing page', () => {
     expect(pipLogos.length).toBeGreaterThan(0)
     expect(pipLogos[0].tagName.toLowerCase()).toBe('svg')
   })
+
+  it('links to Privacy Policy and Terms of Use from the footer and homepage privacy section', () => {
+    renderRoute('/')
+
+    const privacyLinks = screen.getAllByRole('link', { name: /privacy policy/i })
+    expect(privacyLinks.some((link) => link.getAttribute('href') === '/privacy')).toBe(true)
+
+    const termsLinks = screen.getAllByRole('link', { name: /terms of use/i })
+    expect(termsLinks.some((link) => link.getAttribute('href') === '/terms')).toBe(true)
+
+    const fullPolicyCta = screen.getByRole('link', { name: /read full privacy policy/i })
+    expect(fullPolicyCta).toHaveAttribute('href', '/privacy')
+  })
+
+  it('renders the Privacy Policy on /privacy with tabs and contact info', () => {
+    renderRoute('/privacy')
+
+    expect(screen.getByRole('heading', { level: 1, name: /privacy policy for pipsavings/i })).toBeInTheDocument()
+    expect(document.title).toBe('Privacy Policy — PipSavings')
+    expect(screen.getByRole('tab', { name: /privacy policy/i })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('tab', { name: /terms of use/i })).toHaveAttribute('href', '/terms')
+    expect(screen.getByText(/pip does not require an account/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /what stays on your phone/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /what can leave the phone/i })).toBeInTheDocument()
+    expect(screen.getAllByRole('link', { name: /zichienyang@gmail\.com/i }).length).toBeGreaterThan(0)
+  })
+
+  it('renders the Terms of Use on /terms with tabs and disclaimer notice', () => {
+    renderRoute('/terms')
+
+    expect(screen.getByRole('heading', { level: 1, name: /terms of use for pipsavings/i })).toBeInTheDocument()
+    expect(document.title).toBe('Terms of Use — PipSavings')
+    expect(screen.getByRole('tab', { name: /terms of use/i })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('tab', { name: /privacy policy/i })).toHaveAttribute('href', '/privacy')
+    expect(screen.getByText(/not financial advice/i)).toBeInTheDocument()
+    expect(screen.getByText(/not tax advice/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /subscriptions/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /“as is”/i })).toBeInTheDocument()
+  })
+
+  it('redirects /legal to /privacy', () => {
+    renderRoute('/legal')
+
+    expect(screen.getByRole('heading', { level: 1, name: /privacy policy for pipsavings/i })).toBeInTheDocument()
+    expect(document.title).toBe('Privacy Policy — PipSavings')
+  })
 })

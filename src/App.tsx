@@ -18,10 +18,11 @@ import {
   X,
 } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { Link, Route, Routes, useLocation } from 'react-router-dom'
+import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { PipMark } from './components/PipMark'
+import { LegalPage } from './LegalPage'
 
-const instagramUrl = 'https://www.instagram.com/pipsavings/'
+export const instagramUrl = 'https://www.instagram.com/pipsavings/'
 const demoAppUrl = 'https://pip-finance.vercel.app'
 const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.yabg.pip'
 
@@ -63,7 +64,7 @@ type FeatureSectionProps = {
   tone?: 'ivory' | 'sage' | 'blue'
 }
 
-function Header() {
+export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useLocation()
   const onHome = pathname === '/'
@@ -466,6 +467,11 @@ function PrivacySection() {
           <p>
             When you choose an AI feature, Pip tells you what is sent for processing. Ask Pip works with a supported provider key that you add yourself.
           </p>
+          <div className="privacy-actions">
+            <Link className="privacy-link" to="/privacy">
+              Read full Privacy Policy <ArrowRight size={15} />
+            </Link>
+          </div>
         </div>
         <div className="privacy-notes">
           <div><span><WalletCards size={20} /></span><strong>Local ledger</strong><p>Your everyday financial records stay in the app on your device.</p></div>
@@ -499,15 +505,21 @@ function ClosingSection() {
   )
 }
 
-function Footer() {
+export function Footer() {
+  const { pathname } = useLocation()
+  const onHome = pathname === '/'
+  const sectionHref = (id: string) => (onHome ? `#${id}` : `/#${id}`)
+
   return (
     <footer className="site-footer">
       <div className="page-shell site-footer__inner">
-        <a className="brand brand--footer" href="#top" aria-label="Pip home"><PipMark compact /><span>Pip</span></a>
+        <a className="brand brand--footer" href={onHome ? '#top' : '/'} aria-label="Pip home"><PipMark compact /><span>Pip</span></a>
         <div className="footer-links">
-          <a href="#features">Features</a>
-          <a href="#privacy">Privacy</a>
+          <a href={sectionHref('features')}>Features</a>
+          <a href={sectionHref('privacy')}>Privacy</a>
           <Link to="/faq">FAQ</Link>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/terms">Terms of Use</Link>
           <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram</a>
         </div>
       </div>
@@ -617,6 +629,9 @@ export function SiteRoutes() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/faq" element={<FaqPage />} />
+      <Route path="/legal" element={<Navigate to="/privacy" replace />} />
+      <Route path="/privacy" element={<LegalPage initialTab="privacy" />} />
+      <Route path="/terms" element={<LegalPage initialTab="terms" />} />
       <Route path="*" element={<HomePage />} />
     </Routes>
   )
