@@ -726,55 +726,6 @@ h3 {
   background: var(--sage);
   transform: rotate(6deg);
 }
-
-.receipt-slip {
-  position: absolute;
-  z-index: 4;
-  top: 86px;
-  left: 0;
-  width: 190px;
-  padding: 20px;
-  border-radius: 14px;
-  background: white;
-  box-shadow: 0 20px 45px rgba(22, 47, 35, 0.15);
-  color: var(--forest);
-  transform: rotate(-7deg);
-  animation: receipt-float 6s ease-in-out infinite alternate;
-}
-
-.receipt-slip::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: -7px;
-  left: 0;
-  height: 14px;
-  background: radial-gradient(circle at 7px 0, transparent 7px, white 7.5px) 0 0 / 14px 14px repeat-x;
-}
-
-.receipt-slip strong {
-  display: block;
-  margin-top: 17px;
-  font-size: 11px;
-}
-
-.receipt-line {
-  display: block;
-  width: 68%;
-  height: 5px;
-  margin-top: 11px;
-  border-radius: 4px;
-  background: #dfe5e1;
-}
-
-.receipt-line--long {
-  width: 100%;
-}
-
-.receipt-line--short {
-  width: 42%;
-}
-
 .scan-corner {
   position: absolute;
   z-index: 4;
@@ -1528,15 +1479,6 @@ h3 {
   }
 }
 
-@keyframes receipt-float {
-  0% {
-    transform: rotate(-7deg) translateY(0);
-  }
-  100% {
-    transform: rotate(-5.5deg) translateY(-8px);
-  }
-}
-
 @keyframes sparkle-pulse {
   0%, 100% {
     transform: scale(1) rotate(0deg);
@@ -1898,11 +1840,6 @@ h3 {
 
   .floating-command--two {
     left: -3px;
-  }
-
-  .receipt-slip {
-    left: -6px;
-    width: 160px;
   }
 
   .recap-media {

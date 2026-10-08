@@ -10,7 +10,6 @@ import {
   LockKeyhole,
   Menu,
   MessageCircleMore,
-  ReceiptText,
   ScanLine,
   ShieldCheck,
   Sparkles,
@@ -354,13 +353,6 @@ function FeatureStory() {
         reverse
         media={
           <div className="capture-media">
-            <div className="receipt-slip" aria-hidden="true">
-              <ReceiptText size={22} />
-              <span className="receipt-line receipt-line--long" />
-              <span className="receipt-line" />
-              <span className="receipt-line receipt-line--short" />
-              <strong>Ready to review</strong>
-            </div>
             <PhoneFrame src="/screens/scan.png" alt="Pip screen for scanning a receipt or transaction screenshot" />
             <div className="scan-corner"><ScanLine size={23} /></div>
           </div>
