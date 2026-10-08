@@ -185,4 +185,15 @@ describe('Pip landing page', () => {
     expect(screen.getByRole('heading', { level: 1, name: /privacy policy for pipsavings/i })).toBeInTheDocument()
     expect(document.title).toBe('Privacy Policy — PipSavings')
   })
+
+  it('provides a valid sitemap.xml and robots.txt in the public folder', async () => {
+    const { default: sitemapContent } = await import('../public/sitemap.xml?raw')
+    const { default: robotsContent } = await import('../public/robots.txt?raw')
+
+    expect(sitemapContent).toContain('https://www.pipsavings.com/')
+    expect(sitemapContent).toContain('https://www.pipsavings.com/faq')
+    expect(sitemapContent).toContain('https://www.pipsavings.com/privacy')
+    expect(sitemapContent).toContain('https://www.pipsavings.com/terms')
+    expect(robotsContent).toContain('Sitemap: https://www.pipsavings.com/sitemap.xml')
+  })
 })
