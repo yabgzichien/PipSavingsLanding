@@ -155,15 +155,16 @@ img {
   display: flex;
   align-items: center;
   gap: 28px;
+  margin-left: auto;
   font-size: 14px;
   color: #344b40;
 }
 
-.main-nav > a:not(.nav-connect):not(.nav-demo) {
+.main-nav > a:not(.nav-instagram):not(.nav-demo) {
   position: relative;
 }
 
-.main-nav > a:not(.nav-connect):not(.nav-demo)::after {
+.main-nav > a:not(.nav-instagram):not(.nav-demo)::after {
   content: '';
   position: absolute;
   right: 0;
@@ -191,19 +192,32 @@ img {
   font-weight: 700;
 }
 
-.nav-connect {
+.nav-instagram {
   display: inline-flex;
+  width: 42px;
+  height: 42px;
   align-items: center;
-  gap: 8px;
-  padding: 11px 16px;
-  border-radius: 14px;
-  background: var(--forest);
-  color: white;
-  font-weight: 700;
+  justify-content: center;
+  margin-left: -14px;
+  border-radius: 13px;
+  color: var(--forest);
+  transition: background 160ms ease, transform 100ms ease-out;
 }
 
+.nav-instagram:hover {
+  background: var(--sage);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 14px;
+}
+
+.theme-toggle,
 .menu-toggle {
-  display: none;
+  display: inline-flex;
   width: 42px;
   height: 42px;
   padding: 0;
@@ -213,6 +227,29 @@ img {
   color: var(--forest);
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: transform 100ms ease-out, background 160ms ease;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+/* Feedback lands on press, not release. */
+.theme-toggle:active,
+.menu-toggle:active,
+.nav-instagram:active {
+  transform: scale(0.94);
+}
+
+/* The dark variant of every screenshot sits beside the light one; the theme picks which shows. */
+.themed-img--dark,
+:root[data-theme='dark'] .themed-img--light {
+  display: none;
+}
+
+:root[data-theme='dark'] .themed-img--dark {
+  display: block;
 }
 
 .hero {
@@ -746,8 +783,19 @@ h3 {
   background: #d1deeb;
 }
 
-.split-media .phone-frame {
-  width: 326px;
+/* Mirror of the net worth pair: the rear phone sits to the right so its amounts column shows. */
+.split-media {
+  place-items: center start;
+}
+
+.split-media .phone-frame:first-of-type {
+  margin-left: 8%;
+}
+
+.split-media .phone-frame--rear {
+  right: 2%;
+  left: auto;
+  transform: rotate(7deg) translateY(18px);
 }
 
 .people-chip {
@@ -764,26 +812,31 @@ h3 {
   color: white;
   font-family: var(--font-display);
   font-weight: var(--font-heading-weight, 700);
-  font-size: 15px;
+  font-size: 14px;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 
+.people-chip--c {
+  font-size: 12px;
+}
+
 .people-chip--a {
-  top: 120px;
-  left: 6%;
+  top: 96px;
+  left: 2%;
   animation: float-slow 3.8s ease-in-out infinite alternate;
 }
 
 .people-chip--b {
-  top: 166px;
-  right: 4%;
+  top: 84px;
+  right: 3%;
   background: #4b788f;
   animation: float-slow-reverse 4.4s ease-in-out 0.4s infinite alternate;
 }
 
 .people-chip--c {
-  right: 9%;
-  bottom: 117px;
+  left: 3%;
+  bottom: 140px;
   background: var(--clay);
   animation: float-slow 4.1s ease-in-out 1s infinite alternate;
 }
@@ -1637,9 +1690,18 @@ h3 {
   }
 
   .nav-demo,
-  .nav-connect {
+  .nav-instagram {
     justify-content: center;
     margin-top: 5px;
+  }
+
+  .nav-instagram {
+    width: auto;
+    margin-left: 0;
+  }
+
+  .header-actions {
+    margin-left: auto;
   }
 
   .hero {
@@ -1821,8 +1883,13 @@ h3 {
     width: 278px;
   }
 
-  .split-media .phone-frame {
-    width: 286px;
+  .split-media .phone-frame:first-of-type {
+    margin-left: -2%;
+  }
+
+  .split-media .phone-frame--rear {
+    right: -9%;
+    left: auto;
   }
 
   .phone-frame--rear {
@@ -1996,4 +2063,295 @@ h3 {
     transform: none !important;
     transition: none !important;
   }
+}
+
+/* ── Dark theme: black canvas, white accent ─────────────────────────────────
+   Reuses the light layout and swaps the forest/ivory palette for monochrome.
+   Surfaces step up in lightness for depth instead of relying on shadows. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  color: #f2f2f2;
+  background: #000;
+  --ivory: #000;
+  --forest: #fff;
+  --forest-deep: #fff;
+  --sage: #1a1a1a;
+  --sage-soft: #0b0b0b;
+  --blue: #0b0b0b;
+  --clay: #3d3d3d;
+  --ink: #f2f2f2;
+  --muted: #9b9b9b;
+  --line: rgba(255, 255, 255, 0.12);
+  --shadow: 0 28px 70px rgba(0, 0, 0, 0.7);
+  --phone-ring: 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+:root[data-theme='dark'] :focus-visible {
+  outline-color: #fff;
+}
+
+:root[data-theme='dark'] .site-header {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(14, 14, 14, 0.72);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(20px) saturate(160%);
+}
+
+:root[data-theme='dark'] .main-nav {
+  color: #c4c4c4;
+}
+
+:root[data-theme='dark'] .nav-demo {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+:root[data-theme='dark'] .eyebrow {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme='dark'] .hero__lead,
+:root[data-theme='dark'] .feature__body,
+:root[data-theme='dark'] .faq-item__answer p {
+  color: #a6a6a6;
+}
+
+:root[data-theme='dark'] .feature__points {
+  color: #d6d6d6;
+}
+
+:root[data-theme='dark'] .feature--sage .feature__points li > span,
+:root[data-theme='dark'] .feature--blue .feature__points li > span {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* White fills carry black text and icons. */
+:root[data-theme='dark'] .button--primary,
+:root[data-theme='dark'] .floating-command--one,
+:root[data-theme='dark'] .scan-corner,
+:root[data-theme='dark'] .people-chip--a,
+:root[data-theme='dark'] .recap-tab,
+:root[data-theme='dark'] .faq-page__icon,
+:root[data-theme='dark'] .legal-tab--active {
+  color: #000;
+}
+
+:root[data-theme='dark'] .button--primary,
+:root[data-theme='dark'] .button--primary:hover,
+:root[data-theme='dark'] .floating-command,
+:root[data-theme='dark'] .scan-corner,
+:root[data-theme='dark'] .recap-tab,
+:root[data-theme='dark'] .faq-page__icon,
+:root[data-theme='dark'] .legal-tab--active,
+:root[data-theme='dark'] .people-chip {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+}
+
+:root[data-theme='dark'] .button--outline {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+:root[data-theme='dark'] .play-badge {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme='dark'] .play-badge:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme='dark'] .play-badge__triangle {
+  filter: drop-shadow(6px 0 0 rgba(255, 255, 255, 0.32));
+}
+
+/* Hero halo and section blobs become faint light, not colour. */
+:root[data-theme='dark'] .hero-demo__halo {
+  background: radial-gradient(circle at 50% 45%, #1c1c1c, #0d0d0d 70%);
+}
+
+:root[data-theme='dark'] .hero-demo__halo::before,
+:root[data-theme='dark'] .hero-demo__halo::after {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme='dark'] .chat-feature-media::before,
+:root[data-theme='dark'] .capture-media::before,
+:root[data-theme='dark'] .split-media::before,
+:root[data-theme='dark'] .double-phone::before,
+:root[data-theme='dark'] .habit-media::before {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+/* Black screenshots on a black page need a lit edge so the phone reads as an object. */
+:root[data-theme='dark'] .device,
+:root[data-theme='dark'] .phone-frame {
+  border-color: #2b2b2b;
+  background: #0a0a0a;
+  box-shadow: var(--shadow), var(--phone-ring);
+}
+
+:root[data-theme='dark'] .device::after {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme='dark'] .device__speaker,
+:root[data-theme='dark'] .phone-frame__speaker {
+  background: #000;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+:root[data-theme='dark'] .device__screen,
+:root[data-theme='dark'] .hero-demo__video {
+  background: #000;
+}
+
+:root[data-theme='dark'] .hero-demo__note,
+:root[data-theme='dark'] .floating-command--two,
+:root[data-theme='dark'] .streak-card,
+:root[data-theme='dark'] .mascot-picker {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(24, 24, 24, 0.82);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
+  color: #fff;
+  backdrop-filter: blur(16px) saturate(160%);
+}
+
+:root[data-theme='dark'] .floating-command--one {
+  border-color: transparent;
+}
+
+:root[data-theme='dark'] .people-chip {
+  border-color: var(--blue);
+}
+
+:root[data-theme='dark'] .people-chip--b {
+  background: #3a3a3a;
+}
+
+:root[data-theme='dark'] .mascot-swatch,
+:root[data-theme='dark'] .mascot-swatch--sage,
+:root[data-theme='dark'] .mascot-swatch--blue {
+  background: #262626;
+}
+
+:root[data-theme='dark'] .mascot-swatch:hover {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+/* The two forest-green bands become raised black panels separated by hairlines. */
+:root[data-theme='dark'] .product-demo,
+:root[data-theme='dark'] .privacy-section {
+  border-block: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b0b0b;
+}
+
+:root[data-theme='dark'] .feature--sage,
+:root[data-theme='dark'] .feature--blue {
+  background: #0b0b0b;
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+:root[data-theme='dark'] .product-demo__frame {
+  background: #000;
+}
+
+:root[data-theme='dark'] .section-label--light,
+:root[data-theme='dark'] .privacy-link,
+:root[data-theme='dark'] .privacy-notes > div > span {
+  color: #e6e6e6;
+}
+
+:root[data-theme='dark'] .privacy-copy > p:not(.section-label) {
+  color: #a6a6a6;
+}
+
+:root[data-theme='dark'] .privacy-notes > div > span {
+  background: #1f1f1f;
+}
+
+:root[data-theme='dark'] .privacy-notes p {
+  color: #8f8f8f;
+}
+
+:root[data-theme='dark'] .closing-section__orb--one,
+:root[data-theme='dark'] .closing-section__orb--two {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme='dark'] .footer-links {
+  color: #a6a6a6;
+}
+
+:root[data-theme='dark'] .faq-page::before {
+  background: #0f0f0f;
+}
+
+:root[data-theme='dark'] .faq-list,
+:root[data-theme='dark'] .faq-item {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+:root[data-theme='dark'] .legal-page::before {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 70%);
+}
+
+:root[data-theme='dark'] .legal-page__icon {
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme='dark'] .legal-tabs {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme='dark'] .legal-tab:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+:root[data-theme='dark'] .legal-tab--active:hover {
+  background: #e6e6e6;
+}
+
+:root[data-theme='dark'] .legal-card {
+  background: rgba(16, 16, 16, 0.82);
+}
+
+:root[data-theme='dark'] .legal-document,
+:root[data-theme='dark'] .legal-document p,
+:root[data-theme='dark'] .legal-document li {
+  color: #d9d9d9;
+}
+
+:root[data-theme='dark'] .legal-document .meta {
+  color: #9b9b9b;
+}
+
+@media (max-width: 720px) {
+  :root[data-theme='dark'] .main-nav {
+    background: rgba(14, 14, 14, 0.985);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.55);
+  }
+
+  :root[data-theme='dark'] .hero__lead {
+    color: #a6a6a6;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root[data-theme='dark'] .site-header,
+  :root[data-theme='dark'] .hero-demo__note,
+  :root[data-theme='dark'] .floating-command--two,
+  :root[data-theme='dark'] .streak-card,
+  :root[data-theme='dark'] .mascot-picker {
+    background: #161616;
+    backdrop-filter: none;
+  }
+}
+
+/* Theme switch: a short cross-fade (View Transitions), never a hard flash. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: ease;
 }

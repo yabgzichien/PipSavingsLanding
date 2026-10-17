@@ -8,6 +8,20 @@
       content="Pip is an AI-powered finance companion for receipts, transaction history, bill splitting, net worth, monthly recaps and better money habits."
     />
     <meta name="theme-color" content="#f4f1e8" />
+    <script>
+      // Apply the saved or system theme before first paint so dark visitors never see a light flash.
+      (function () {
+        var theme
+        try {
+          theme = localStorage.getItem('pip-theme')
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        document.documentElement.dataset.theme = theme
+        if (theme === 'dark') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000000')
+      })()
+    </script>
     <link rel="icon" type="image/png" href="/pip-icon.png" />
     <link rel="canonical" href="https://www.pipsavings.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

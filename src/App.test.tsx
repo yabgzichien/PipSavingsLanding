@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { SiteRoutes } from './App'
 
@@ -177,6 +177,41 @@ describe('Pip landing page', () => {
     expect(screen.getByText(/not tax advice/i)).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /subscriptions/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /“as is”/i })).toBeInTheDocument()
+  })
+
+  it('shows Instagram in the navigation as an icon rather than text', () => {
+    renderRoute('/')
+
+    const nav = screen.getByRole('navigation', { name: /main navigation/i })
+    const instagram = within(nav).getByRole('link', { name: 'Instagram' })
+    expect(instagram).toHaveTextContent('')
+    expect(instagram.querySelector('svg')).toBeInTheDocument()
+  })
+
+  it('switches between light and dark themes and remembers the choice', () => {
+    document.documentElement.dataset.theme = 'light'
+    renderRoute('/')
+
+    fireEvent.click(screen.getByRole('button', { name: /switch to dark theme/i }))
+    expect(document.documentElement.dataset.theme).toBe('dark')
+    expect(localStorage.getItem('pip-theme')).toBe('dark')
+    expect(screen.getByRole('button', { name: /switch to light theme/i })).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: /switch to light theme/i }))
+    expect(document.documentElement.dataset.theme).toBe('light')
+    expect(localStorage.getItem('pip-theme')).toBe('light')
+  })
+
+  it('pairs every app screenshot with a dark-theme capture', () => {
+    const { container } = renderRoute('/')
+
+    const light = [...container.querySelectorAll<HTMLImageElement>('img.themed-img--light')]
+    const dark = [...container.querySelectorAll<HTMLImageElement>('img.themed-img--dark')]
+    expect(light.length).toBeGreaterThan(0)
+    expect(dark.map((img) => img.getAttribute('src'))).toEqual(
+      light.map((img) => img.getAttribute('src')!.replace('/screens/', '/screens/dark/')),
+    )
+    expect(light.map((img) => img.getAttribute('src'))).toContain('/screens/split-bill.png')
   })
 
   it('redirects /legal to /privacy', () => {

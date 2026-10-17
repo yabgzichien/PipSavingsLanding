@@ -10,9 +10,11 @@ import {
   LockKeyhole,
   Menu,
   MessageCircleMore,
+  Moon,
   ScanLine,
   ShieldCheck,
   Sparkles,
+  Sun,
   WalletCards,
   X,
 } from 'lucide-react'
@@ -20,6 +22,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { PipMark } from './components/PipMark'
 import { LegalPage } from './LegalPage'
+import { useTheme } from './theme'
 
 export const instagramUrl = 'https://www.instagram.com/pipsavings/'
 const demoAppUrl = 'https://pip-finance.vercel.app'
@@ -46,6 +49,7 @@ function InstagramIcon({ size = 18 }: { size?: number }) {
 }
 
 type PhoneFrameProps = {
+  /** Screenshot file in /screens; the dark variant lives at the same name in /screens/dark. */
   src: string
   alt: string
   className?: string
@@ -63,6 +67,23 @@ type FeatureSectionProps = {
   tone?: 'ivory' | 'sage' | 'blue'
 }
 
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme()
+  const next = theme === 'dark' ? 'light' : 'dark'
+
+  return (
+    <button
+      className="theme-toggle"
+      type="button"
+      aria-label={`Switch to ${next} theme`}
+      title={`Switch to ${next} theme`}
+      onClick={toggleTheme}
+    >
+      {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+    </button>
+  )
+}
+
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useLocation()
@@ -78,16 +99,6 @@ export function Header() {
         <span>Pip</span>
       </a>
 
-      <button
-        className="menu-toggle"
-        type="button"
-        aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
-        aria-expanded={menuOpen}
-        onClick={() => setMenuOpen((open) => !open)}
-      >
-        {menuOpen ? <X size={21} /> : <Menu size={21} />}
-      </button>
-
       <nav className={menuOpen ? 'main-nav main-nav--open' : 'main-nav'} aria-label="Main navigation">
         <a href={sectionHref('features')} onClick={closeMenu}>Features</a>
         <a href={sectionHref('privacy')} onClick={closeMenu}>Privacy</a>
@@ -95,10 +106,31 @@ export function Header() {
         <a className="nav-demo" href={demoAppUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>
           Demo <ArrowRight size={15} />
         </a>
-        <a className="nav-connect" href={instagramUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>
-          Instagram <ArrowRight size={15} />
+        <a
+          className="nav-instagram"
+          href={instagramUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+          title="Pip on Instagram"
+          onClick={closeMenu}
+        >
+          <InstagramIcon size={19} />
         </a>
       </nav>
+
+      <div className="header-actions">
+        <ThemeToggle />
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X size={21} /> : <Menu size={21} />}
+        </button>
+      </div>
     </header>
   )
 }
@@ -165,6 +197,8 @@ function useScrollReveal() {
 
 function HeroDemo() {
   const reducedMotion = usePrefersReducedMotion()
+  const { theme } = useTheme()
+  const videoBase = theme === 'dark' ? '/videos/ask-pip-demo-dark' : '/videos/ask-pip-demo'
   const containerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -193,7 +227,7 @@ function HeroDemo() {
     )
     observer.observe(video)
     return () => observer.disconnect()
-  }, [reducedMotion])
+  }, [reducedMotion, theme])
 
   return (
     <div className="hero-demo" ref={containerRef} aria-label="Ask Pip opens filtered transaction history">
@@ -201,17 +235,18 @@ function HeroDemo() {
       <div className="device device--hero">
         <div className="device__screen">
           <video
+            key={theme}
             ref={videoRef}
             className="hero-demo__video"
             autoPlay
             loop
             muted
             playsInline
-            poster="/screens/ask-pip.png"
+            poster={theme === 'dark' ? '/screens/dark/ask-pip.png' : '/screens/ask-pip.png'}
             aria-label="Demonstration of Ask Pip responding to a natural language money inquiry with filtered activity"
           >
-            <source src="/videos/ask-pip-demo.webm" type="video/webm" />
-            <source src="/videos/ask-pip-demo.mp4" type="video/mp4" />
+            <source src={`${videoBase}.webm`} type="video/webm" />
+            <source src={`${videoBase}.mp4`} type="video/mp4" />
           </video>
         </div>
       </div>
@@ -249,10 +284,14 @@ function Hero() {
 }
 
 function PhoneFrame({ src, alt, className = '', eager = false }: PhoneFrameProps) {
+  const loading = eager ? 'eager' : 'lazy'
+  // Both variants are in the DOM and CSS shows the one for the active theme, so switching never
+  // waits on React. Lazy images inside display:none are not fetched until their theme is shown.
   return (
     <div className={`phone-frame ${className}`}>
       <div className="phone-frame__speaker" />
-      <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} />
+      <img className="themed-img themed-img--light" src={`/screens/${src}`} alt={alt} loading={loading} />
+      <img className="themed-img themed-img--dark" src={`/screens/dark/${src}`} alt={alt} loading={loading} />
     </div>
   )
 }
@@ -334,7 +373,7 @@ function FeatureStory() {
         tone="sage"
         media={
           <div className="chat-feature-media">
-            <PhoneFrame src="/screens/ask-pip.png" alt="Ask Pip chat screen with suggested money questions" />
+            <PhoneFrame src="ask-pip.png" alt="Ask Pip chat screen with suggested money questions" />
             <div className="floating-command floating-command--one">Show me this month</div>
             <div className="floating-command floating-command--two">Who owes me?</div>
           </div>
@@ -353,7 +392,7 @@ function FeatureStory() {
         reverse
         media={
           <div className="capture-media">
-            <PhoneFrame src="/screens/scan.png" alt="Pip screen for scanning a receipt or transaction screenshot" />
+            <PhoneFrame src="scan.png" alt="Pip screen for scanning a receipt or transaction screenshot" />
             <div className="scan-corner"><ScanLine size={23} /></div>
           </div>
         }
@@ -364,16 +403,18 @@ function FeatureStory() {
         title="Split the bill while everyone still remembers it."
         body="Assign each item, add service charges and discounts, then keep track of the balance after everyone heads home."
         points={[
-          'Item-by-item splits for uneven orders',
-          'Service charges, vouchers and owed balances included',
+          'Item-by-item splits, with shared plates divided fairly',
+          'Service charge, tax and vouchers applied the way the receipt does',
+          'Send everyone a receipt image of their share',
         ]}
         tone="blue"
         media={
           <div className="split-media">
-            <PhoneFrame src="/screens/split-bill.jpg" alt="Itemized bill split with people assigned to each order" />
-            <div className="people-chip people-chip--a">F</div>
-            <div className="people-chip people-chip--b">N</div>
-            <div className="people-chip people-chip--c">M</div>
+            <PhoneFrame src="split-bill.png" alt="Receipt items assigned to You, Wen Jie, Zhi Chen or everyone at the table" />
+            <PhoneFrame src="split-totals.png" alt="Bill total with each person's share and options to share or download the split receipt" className="phone-frame--rear" />
+            <div className="people-chip people-chip--a">WJ</div>
+            <div className="people-chip people-chip--b">ZC</div>
+            <div className="people-chip people-chip--c">You</div>
           </div>
         }
       />
@@ -390,8 +431,8 @@ function FeatureStory() {
         reverse
         media={
           <div className="double-phone">
-            <PhoneFrame src="/screens/net-worth.png" alt="Pip net worth overview with assets, liabilities and a six-month trend" />
-            <PhoneFrame src="/screens/breakdown.png" alt="Monthly transaction breakdown organized by spending category" className="phone-frame--rear" />
+            <PhoneFrame src="net-worth.png" alt="Pip net worth overview with assets, liabilities and a six-month trend" />
+            <PhoneFrame src="breakdown.png" alt="Monthly transaction breakdown organized by spending category" className="phone-frame--rear" />
           </div>
         }
       />
@@ -407,7 +448,7 @@ function FeatureStory() {
         tone="sage"
         media={
           <div className="recap-media">
-            <PhoneFrame src="/screens/monthly-recap.png" alt="Pip monthly recap showing recorded spending and category breakdown" />
+            <PhoneFrame src="monthly-recap.png" alt="Pip monthly recap showing recorded spending and category breakdown" />
             <div className="recap-tab"><Sparkles size={15} /> Your month with Pip</div>
           </div>
         }
@@ -431,7 +472,7 @@ function FeatureStory() {
 function HabitMedia() {
   return (
     <div className="habit-media">
-      <PhoneFrame src="/screens/home.png" alt="Pip home dashboard with a seven-day logging streak and mascot" />
+      <PhoneFrame src="home.png" alt="Pip home dashboard with a seven-day logging streak and mascot" />
       <div className="streak-card">
         <span>🔥</span>
         <div><strong>7 days</strong><small>and counting</small></div>
