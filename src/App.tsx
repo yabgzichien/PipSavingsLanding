@@ -3,16 +3,23 @@ import {
   ArrowLeft,
   ArrowRight,
   Bot,
+  CalendarDays,
   Check,
   ChevronDown,
   ChevronRight,
+  CloudUpload,
   ExternalLink,
+  FileDown,
+  Globe,
   LockKeyhole,
   Menu,
   MessageCircleMore,
   Moon,
-  ScanLine,
+  PiggyBank,
+  ReceiptText,
+  Repeat,
   ShieldCheck,
+  Smartphone,
   Sparkles,
   Sun,
   WalletCards,
@@ -23,6 +30,9 @@ import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { PipMark } from './components/PipMark'
 import { LegalPage } from './LegalPage'
 import { useTheme } from './theme'
+import { usePrefersReducedMotion } from './motion'
+import { ScanDemo } from './components/ScanDemo'
+import { TripDemo } from './components/TripDemo'
 
 export const instagramUrl = 'https://www.instagram.com/pipsavings/'
 const demoAppUrl = 'https://pip-finance.vercel.app'
@@ -151,20 +161,6 @@ function GooglePlayBadge() {
       </span>
     </a>
   )
-}
-
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false)
-
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setReduced(query.matches)
-    const handleChange = (event: MediaQueryListEvent) => setReduced(event.matches)
-    query.addEventListener?.('change', handleChange)
-    return () => query.removeEventListener?.('change', handleChange)
-  }, [])
-
-  return reduced
 }
 
 function useScrollReveal() {
@@ -383,19 +379,14 @@ function FeatureStory() {
       <FeatureSection
         eyebrow="Scan and capture"
         title="Take a photo. Skip the typing."
-        body="Scan a paper receipt or choose a transaction screenshot from your phone. Pip reads the useful details, then shows you what it found before anything is saved."
+        body="Snap a paper receipt or pick a screenshot of your e-wallet or bank history. Pip reads every line, suggests a category for each one and waits for you to review before anything is saved."
         points={[
-          'Receipts and e-wallet screenshots',
-          'Multiple transactions from one history image',
-          'A review step before records enter your ledger',
+          'Itemized receipts, ready to split if you shared the table',
+          'Every transaction from one history screenshot',
+          'Remembers how you categorize merchants you visit again',
         ]}
         reverse
-        media={
-          <div className="capture-media">
-            <PhoneFrame src="scan.png" alt="Pip screen for scanning a receipt or transaction screenshot" />
-            <div className="scan-corner"><ScanLine size={23} /></div>
-          </div>
-        }
+        media={<ScanDemo />}
       />
 
       <FeatureSection
@@ -420,6 +411,21 @@ function FeatureStory() {
       />
 
       <FeatureSection
+        id="trips"
+        eyebrow="Trips"
+        title="Every trip, totalled in one place."
+        body="Make a trip with a name and dates, then tag expenses as you go or pull in ones you already logged. Pip adds it up and shows where the money went."
+        points={[
+          'A total and category breakdown for each trip',
+          'Totals in the trip’s own currency, like SGD or JPY, with Pip Pro',
+          'Filter your activity by trip, or ask Pip to open it',
+        ]}
+        tone="sage"
+        reverse
+        media={<TripDemo />}
+      />
+
+      <FeatureSection
         eyebrow="Net worth and history"
         title="Your net worth, minus the spreadsheet."
         body="See assets, liabilities and the transactions behind the number. Pip keeps the overview and the day-to-day details close together."
@@ -428,7 +434,6 @@ function FeatureStory() {
           'A six-month net worth curve',
           'Spending history organized by category',
         ]}
-        reverse
         media={
           <div className="double-phone">
             <PhoneFrame src="net-worth.png" alt="Pip net worth overview with assets, liabilities and a six-month trend" />
@@ -445,7 +450,8 @@ function FeatureStory() {
           'A quick read on recorded spending patterns',
           'Shareable story cards that keep amounts private',
         ]}
-        tone="sage"
+        tone="blue"
+        reverse
         media={
           <div className="recap-media">
             <PhoneFrame src="monthly-recap.png" alt="Pip monthly recap showing recorded spending and category breakdown" />
@@ -462,10 +468,45 @@ function FeatureStory() {
           'A visible daily logging streak',
           'Mascot colors and customizations to earn',
         ]}
-        reverse
+        tone="sage"
         media={<HabitMedia />}
       />
+
+      <EverydayEssentials />
     </div>
+  )
+}
+
+const essentials: { icon: typeof Globe; title: string; body: string; pro?: boolean }[] = [
+  { icon: CalendarDays, title: 'Cash-flow calendar', body: 'Money in and out, day by day, so heavy weeks show up early.' },
+  { icon: PiggyBank, title: 'Budget envelopes', body: 'Monthly targets per category, with a guided setup.' },
+  { icon: Repeat, title: 'Bills and subscriptions', body: 'Rent, utilities and plans in one list, so nothing renews unnoticed.' },
+  { icon: Globe, title: 'Multi-currency', body: 'Record in the currency you paid. Live rates convert the rest.', pro: true },
+  { icon: ReceiptText, title: 'Tax relief tracking', body: 'Tag eligible spending to Malaysian relief categories, with each cap shown.' },
+  { icon: FileDown, title: 'Reports and export', body: 'Preview monthly summaries, then export PDF, Excel or CSV.', pro: true },
+  { icon: Smartphone, title: 'Home screen widget', body: 'Your streak and quick-record buttons on your Android home screen.' },
+  { icon: CloudUpload, title: 'Google Drive backup', body: 'Optional backups to your own Drive, restored when you switch phones.' },
+]
+
+function EverydayEssentials() {
+  return (
+    <section className="essentials">
+      <div className="page-shell">
+        <div className="essentials__head reveal">
+          <p className="section-label">And the everyday essentials</p>
+          <h2>Everything else, already there.</h2>
+        </div>
+        <ul className="essentials__grid">
+          {essentials.map(({ icon: Icon, title, body, pro }, i) => (
+            <li key={title} className="essentials__tile reveal" style={{ transitionDelay: `${(i % 4) * 60}ms` }}>
+              <span className="essentials__icon"><Icon size={20} /></span>
+              <strong>{title}{pro && <span className="essentials__pro">Pro</span>}</strong>
+              <p>{body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   )
 }
 

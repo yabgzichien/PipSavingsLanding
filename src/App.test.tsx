@@ -132,6 +132,31 @@ describe('Pip landing page', () => {
     expect(container.querySelector('.product-demo')).toContainElement(demo)
   })
 
+  it('plays the scan flow for receipts and history screenshots', () => {
+    renderRoute('/')
+
+    const tabs = screen.getByRole('tablist', { name: /what to scan/i })
+    const receiptTab = within(tabs).getByRole('tab', { name: /receipt/i })
+    const historyTab = within(tabs).getByRole('tab', { name: /history/i })
+    expect(receiptTab).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByText(/kopi & co\./i)).toBeInTheDocument()
+
+    fireEvent.click(historyTab)
+    expect(historyTab).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByText(/4 transactions found/i)).toBeInTheDocument()
+    expect(screen.getByText(/sort 4 items/i)).toBeInTheDocument()
+  })
+
+  it('introduces trips and the everyday essentials', () => {
+    const { container } = renderRoute('/')
+
+    expect(screen.getByRole('heading', { name: /every trip, totalled in one place/i })).toBeInTheDocument()
+    expect(container.querySelector('#trips .trip-demo')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /everything else, already there/i })).toBeInTheDocument()
+    expect(screen.getByText(/cash-flow calendar/i)).toBeInTheDocument()
+    expect(screen.getByText(/tax relief tracking/i)).toBeInTheDocument()
+  })
+
   it('renders the authentic Pip vector logo across the page', () => {
     renderRoute('/')
 
