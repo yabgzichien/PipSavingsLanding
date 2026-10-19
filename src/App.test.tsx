@@ -117,7 +117,7 @@ describe('Pip landing page', () => {
 
     const demoHeading = screen.getByRole('heading', { name: /see pip in action/i })
     const demo = screen.getByTitle(/pip product demo/i)
-    const askPipHeading = screen.getByRole('heading', { name: /ask once/i })
+    const askPipHeading = screen.getByRole('heading', { name: /ask pip anything/i })
 
     expect(demo.tagName.toLowerCase()).toBe('iframe')
     expect(demo).toHaveAttribute(
@@ -150,7 +150,7 @@ describe('Pip landing page', () => {
   it('introduces trips and the everyday essentials', () => {
     const { container } = renderRoute('/')
 
-    expect(screen.getByRole('heading', { name: /every trip, totalled in one place/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /trip expenses/i })).toBeInTheDocument()
     expect(container.querySelector('#trips .trip-demo')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /everything else, already there/i })).toBeInTheDocument()
     expect(screen.getByText(/cash-flow calendar/i)).toBeInTheDocument()

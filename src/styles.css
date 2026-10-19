@@ -3359,3 +3359,46 @@ h3 {
 :root[data-theme='dark'] .essentials__pro {
   color: #000;
 }
+
+/* Net worth: faint market backdrop */
+.market-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.market-backdrop__candles {
+  position: absolute;
+  bottom: 2%;
+  left: -26%;
+  width: 78%;
+  height: 66%;
+  opacity: 0.45;
+}
+.candle line { stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.candle--up { color: #4fa57a; }
+.candle--up rect { fill: #4fa57a; }
+.candle--down { color: #d9735b; }
+.candle--down rect { fill: #d9735b; }
+.market-coin {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fffdf8;
+  color: #c58a2b;
+  z-index: 3;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  opacity: 0.95;
+  animation: market-float 7s ease-in-out infinite;
+}
+.market-coin--btc { left: -1%; top: 60%; }
+.market-coin--eth { right: 1%; top: 3%; color: #6c7fd1; animation-delay: -3s; }
+@keyframes market-float {
+  50% { transform: translateY(-8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .market-coin { animation: none; }
+}
+:root[data-theme='dark'] .market-coin { background: #1d1d1d; }

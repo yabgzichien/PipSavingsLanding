@@ -24,6 +24,7 @@ import {
   Sun,
   WalletCards,
   X,
+  Bitcoin,
 } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
@@ -347,6 +348,35 @@ function ProductDemo() {
   )
 }
 
+// [x, open, close, wick high, wick low]: a rising, slightly choppy series on a 260 x 420 grid
+const candles = [
+  [24, 330, 300, 285, 345], [60, 300, 312, 288, 326], [96, 312, 270, 255, 322], [132, 270, 282, 250, 292],
+  [168, 282, 225, 208, 292], [204, 225, 238, 200, 250], [240, 238, 170, 150, 248],
+]
+
+/** Faint candlesticks with Bitcoin and Ethereum coins, drawn here and used only as generic asset-class cues. */
+function MarketBackdrop() {
+  return (
+    <div className="market-backdrop" aria-hidden="true">
+      <svg className="market-backdrop__candles" viewBox="0 0 260 420" preserveAspectRatio="xMinYMax meet">
+        {candles.map(([x, open, close, high, low], i) => (
+          <g key={i} className={close < open ? 'candle candle--up' : 'candle candle--down'}>
+            <line x1={x} x2={x} y1={high} y2={low} />
+            <rect x={x - 9} y={Math.min(open, close)} width="18" height={Math.abs(open - close)} rx="3" />
+          </g>
+        ))}
+      </svg>
+      <span className="market-coin market-coin--btc"><Bitcoin size={26} strokeWidth={2.2} /></span>
+      <span className="market-coin market-coin--eth">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M12 2 5.5 12.2 12 16l6.5-3.8z" opacity=".85" />
+          <path d="M12 17.3 5.5 13.5 12 22l6.5-8.5z" />
+        </svg>
+      </span>
+    </div>
+  )
+}
+
 function FeatureStory() {
   return (
     <div id="features" className="feature-story">
@@ -360,7 +390,7 @@ function FeatureStory() {
 
       <FeatureSection
         eyebrow="Ask Pip"
-        title="Ask once. Go straight to the answer."
+        title="Ask Pip Anything"
         body="Type what you need in plain language. Pip finds the right view, applies the filter and leaves every save, edit or settle action with you."
         points={[
           'Open transactions by date, category or trip',
@@ -378,7 +408,7 @@ function FeatureStory() {
 
       <FeatureSection
         eyebrow="Scan and capture"
-        title="Take a photo. Skip the typing."
+        title="Scan Receipts & Screenshots"
         body="Snap a paper receipt or pick a screenshot of your e-wallet or bank history. Pip reads every line, suggests a category for each one and waits for you to review before anything is saved."
         points={[
           'Itemized receipts, ready to split if you shared the table',
@@ -391,7 +421,7 @@ function FeatureStory() {
 
       <FeatureSection
         eyebrow="Split bills"
-        title="Split the bill while everyone still remembers it."
+        title="Split Bills Fairly"
         body="Assign each item, add service charges and discounts, then keep track of the balance after everyone heads home."
         points={[
           'Item-by-item splits, with shared plates divided fairly',
@@ -413,7 +443,7 @@ function FeatureStory() {
       <FeatureSection
         id="trips"
         eyebrow="Trips"
-        title="Every trip, totalled in one place."
+        title="Trip Expenses"
         body="Make a trip with a name and dates, then tag expenses as you go or pull in ones you already logged. Pip adds it up and shows where the money went."
         points={[
           'A total and category breakdown for each trip',
@@ -427,7 +457,7 @@ function FeatureStory() {
 
       <FeatureSection
         eyebrow="Net worth and history"
-        title="Your net worth, minus the spreadsheet."
+        title="Live Investment & Net Worth"
         body="See assets, liabilities and the transactions behind the number. Pip keeps the overview and the day-to-day details close together."
         points={[
           'Cash, investments, loans and money owed to you',
@@ -436,6 +466,7 @@ function FeatureStory() {
         ]}
         media={
           <div className="double-phone">
+            <MarketBackdrop />
             <PhoneFrame src="net-worth.png" alt="Pip net worth overview with assets, liabilities and a six-month trend" />
             <PhoneFrame src="breakdown.png" alt="Monthly transaction breakdown organized by spending category" className="phone-frame--rear" />
           </div>
@@ -444,7 +475,7 @@ function FeatureStory() {
 
       <FeatureSection
         eyebrow="Monthly recap"
-        title="Your month, in a few honest pages."
+        title="Monthly Recap"
         body="Pip turns the activity you recorded into a short monthly recap. See where your money went, notice the habits you kept and share only what you choose."
         points={[
           'A quick read on recorded spending patterns',
@@ -462,7 +493,7 @@ function FeatureStory() {
 
       <FeatureSection
         eyebrow="Streaks and your Pip"
-        title="Keep the habit. Make Pip yours."
+        title="Streaks & Custom Pip"
         body="A light daily streak helps you keep your records current. Change Pip's look as you go, so the routine feels like yours rather than another admin task."
         points={[
           'A visible daily logging streak',
