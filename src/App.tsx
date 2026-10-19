@@ -366,9 +366,9 @@ function MarketBackdrop() {
           </g>
         ))}
       </svg>
-      <span className="market-coin market-coin--btc"><Bitcoin size={26} strokeWidth={2.2} /></span>
+      <span className="market-coin market-coin--btc"><Bitcoin size={34} strokeWidth={2.6} /></span>
       <span className="market-coin market-coin--eth">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+        <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2 5.5 12.2 12 16l6.5-3.8z" opacity=".85" />
           <path d="M12 17.3 5.5 13.5 12 22l6.5-8.5z" />
         </svg>

@@ -3383,22 +3383,31 @@ h3 {
   position: absolute;
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: #fffdf8;
-  color: #c58a2b;
+  color: #fff;
   z-index: 3;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-  opacity: 0.95;
+  border: 2px solid rgba(255, 255, 255, 0.55);
   animation: market-float 7s ease-in-out infinite;
 }
-.market-coin--btc { left: -1%; top: 60%; }
-.market-coin--eth { right: 1%; top: 3%; color: #6c7fd1; animation-delay: -3s; }
+.market-coin svg { width: 34px; height: 34px; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2)); }
+.market-coin--btc {
+  left: -2%;
+  top: 58%;
+  background: radial-gradient(circle at 32% 28%, #ffe36b, #ffc21a 55%, #f59e0b);
+  box-shadow: 0 8px 24px rgba(255, 184, 0, 0.55), 0 0 0 6px rgba(255, 196, 40, 0.18);
+}
+.market-coin--eth {
+  right: 0;
+  top: 2%;
+  background: radial-gradient(circle at 32% 28%, #8fd4ff, #4f8cff 55%, #6a5cff);
+  box-shadow: 0 8px 24px rgba(79, 140, 255, 0.55), 0 0 0 6px rgba(100, 150, 255, 0.18);
+  animation-delay: -3s;
+}
 @keyframes market-float {
   50% { transform: translateY(-8px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .market-coin { animation: none; }
 }
-:root[data-theme='dark'] .market-coin { background: #1d1d1d; }
