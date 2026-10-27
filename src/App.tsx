@@ -34,6 +34,7 @@ import { useTheme } from './theme'
 import { usePrefersReducedMotion } from './motion'
 import { ScanDemo } from './components/ScanDemo'
 import { TripDemo } from './components/TripDemo'
+import { pageSeo } from './seo'
 
 export const instagramUrl = 'https://www.instagram.com/pipsavings/'
 const demoAppUrl = 'https://pip-finance.vercel.app'
@@ -105,7 +106,7 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <a className="brand" href={onHome ? '#top' : '/'} aria-label="Pip home" onClick={closeMenu}>
+      <a className="brand" href={onHome ? '#top' : '/'} aria-label="PipSavings home" onClick={closeMenu}>
         <PipMark compact />
         <span>Pip</span>
       </a>
@@ -259,12 +260,14 @@ function Hero() {
       <section className="hero page-shell">
         <div className="hero__copy">
           <div className="hero__header">
-            <div className="eyebrow"><Sparkles size={14} /> AI-powered personal finance</div>
-            <h1>Your money, ready when you ask.</h1>
+            <h1>
+              <span className="eyebrow"><Sparkles size={14} /> PipSavings · AI personal finance app</span>
+              <span className="hero__headline">Your money, ready when you ask.</span>
+            </h1>
           </div>
           <div className="hero__details">
             <p className="hero__lead">
-              Pip turns receipts, transaction screenshots and everyday questions into a clear view of where your money went. Ask in plain language, then open the real screen to see the details.
+              Pip by PipSavings turns receipts, transaction screenshots and everyday questions into a clear view of where your money went. Ask in plain language, then open the real screen to see the details.
             </p>
             <div className="hero__actions">
               <a className="button button--primary" href="#features">
@@ -618,7 +621,8 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="page-shell site-footer__inner">
-        <a className="brand brand--footer" href={onHome ? '#top' : '/'} aria-label="Pip home"><PipMark compact /><span>Pip</span></a>
+        <a className="brand brand--footer" href={onHome ? '#top' : '/'} aria-label="PipSavings home"><PipMark compact /><span>Pip</span></a>
+        <p className="site-footer__legal">© {new Date().getFullYear()} PipSavings. Pip is a personal finance app by PipSavings.</p>
         <div className="footer-links">
           <a href={sectionHref('features')}>Features</a>
           <a href={sectionHref('privacy')}>Privacy</a>
@@ -634,7 +638,7 @@ export function Footer() {
 
 function HomePage() {
   useEffect(() => {
-    document.title = 'Pip'
+    document.title = pageSeo.home.title
     const id = window.location.hash.slice(1)
     if (!id) return
     document.getElementById(id)?.scrollIntoView()
@@ -655,7 +659,7 @@ function HomePage() {
 
 function FaqPage() {
   useEffect(() => {
-    document.title = 'FAQ | Pip'
+    document.title = pageSeo.faq.title
   }, [])
 
   const items = [
@@ -707,8 +711,10 @@ function FaqPage() {
       <main className="faq-page">
         <header className="faq-hero">
           <div className="faq-page__icon"><ShieldCheck size={31} /></div>
-          <p className="section-label">Privacy &amp; AI</p>
-          <h1 id="faq-heading">Your money stays yours.</h1>
+          <h1 id="faq-heading">
+            <span className="section-label">PipSavings FAQ · Privacy &amp; AI</span>
+            <span className="faq-hero__headline">Your money stays yours.</span>
+          </h1>
         </header>
 
         <section className="faq-list" aria-labelledby="faq-heading">

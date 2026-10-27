@@ -29,7 +29,7 @@ describe('Pip landing page', () => {
     expect(screen.queryByText(/local-first ledger/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/no account required/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/you confirm every change/i)).not.toBeInTheDocument()
-    expect(document.title).toBe('Pip')
+    expect(document.title).toBe('PipSavings — Pip, the AI Personal Finance App')
     expect(
       screen.queryByText(/know your money without turning it into a second job/i),
     ).not.toBeInTheDocument()

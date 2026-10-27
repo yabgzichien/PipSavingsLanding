@@ -2,6 +2,7 @@ import { ArrowLeft, ExternalLink, FileText, Scale, ShieldCheck } from 'lucide-re
 import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Footer, Header, instagramUrl } from './App'
+import { pageSeo } from './seo'
 
 type LegalPageProps = {
   initialTab?: 'privacy' | 'terms'
@@ -12,7 +13,7 @@ export function LegalPage({ initialTab = 'privacy' }: LegalPageProps) {
   const activeTab: 'privacy' | 'terms' = pathname === '/terms' ? 'terms' : initialTab
 
   useEffect(() => {
-    document.title = activeTab === 'privacy' ? 'Privacy Policy — PipSavings' : 'Terms of Use — PipSavings'
+    document.title = pageSeo[activeTab].title
     window.scrollTo?.({ top: 0, behavior: 'instant' })
   }, [activeTab])
 

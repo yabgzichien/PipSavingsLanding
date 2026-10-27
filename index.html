@@ -3,10 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PipSavings — Pip, the AI Personal Finance App</title>
     <meta
       name="description"
-      content="Pip is an AI-powered finance companion for receipts, transaction history, bill splitting, net worth, monthly recaps and better money habits."
+      content="PipSavings makes Pip, an AI personal finance app for Android. Scan receipts, track spending, split bills, follow your net worth and ask about your money in plain language."
     />
+    <link rel="canonical" href="https://www.pipsavings.com/" />
+    <meta name="application-name" content="PipSavings" />
+    <meta property="og:site_name" content="PipSavings" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.pipsavings.com/" />
+    <meta property="og:title" content="PipSavings — Pip, the AI Personal Finance App" />
+    <meta
+      property="og:description"
+      content="PipSavings makes Pip, an AI personal finance app for Android. Scan receipts, track spending, split bills, follow your net worth and ask about your money in plain language."
+    />
+    <meta property="og:image" content="https://www.pipsavings.com/pip-icon.png" />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.pipsavings.com/#website",
+            "name": "PipSavings",
+            "alternateName": ["Pip Savings", "Pip", "pipsavings.com"],
+            "url": "https://www.pipsavings.com/",
+            "publisher": { "@id": "https://www.pipsavings.com/#organization" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.pipsavings.com/#organization",
+            "name": "PipSavings",
+            "alternateName": "Pip Savings",
+            "url": "https://www.pipsavings.com/",
+            "logo": "https://www.pipsavings.com/pip-icon.png",
+            "sameAs": [
+              "https://www.instagram.com/pipsavings/",
+              "https://play.google.com/store/apps/details?id=com.yabg.pip"
+            ]
+          },
+          {
+            "@type": "MobileApplication",
+            "@id": "https://www.pipsavings.com/#app",
+            "name": "Pip",
+            "alternateName": ["PipSavings", "Pip Savings"],
+            "operatingSystem": "Android",
+            "applicationCategory": "FinanceApplication",
+            "url": "https://www.pipsavings.com/",
+            "downloadUrl": "https://play.google.com/store/apps/details?id=com.yabg.pip",
+            "image": "https://www.pipsavings.com/pip-icon.png",
+            "publisher": { "@id": "https://www.pipsavings.com/#organization" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          }
+        ]
+      }
+    </script>
     <meta name="theme-color" content="#f4f1e8" />
     <script>
       // Apply the saved or system theme before first paint so dark visitors never see a light flash.
@@ -23,14 +76,13 @@
       })()
     </script>
     <link rel="icon" type="image/png" href="/pip-icon.png" />
-    <link rel="canonical" href="https://www.pipsavings.com/" />
+    <link rel="apple-touch-icon" href="/pip-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap"
       rel="stylesheet"
     />
-    <title>Pip</title>
   </head>
   <body>
     <div id="root"></div>

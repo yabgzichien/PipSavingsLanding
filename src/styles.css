@@ -294,6 +294,24 @@ img {
   text-transform: uppercase;
 }
 
+/* Brand labels sit inside the h1 so crawlers read "PipSavings" as part of the main heading. */
+h1 > .eyebrow,
+h1 > .section-label {
+  display: flex;
+  width: fit-content;
+  font-family: var(--font-body, inherit);
+  line-height: 1.2;
+}
+
+.faq-hero h1 > .section-label {
+  margin-inline: auto;
+}
+
+.hero__headline,
+.faq-hero__headline {
+  display: block;
+}
+
 .eyebrow {
   padding: 9px 12px;
   border: 1px solid var(--line);
