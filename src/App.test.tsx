@@ -29,7 +29,7 @@ describe('Pip landing page', () => {
     expect(screen.queryByText(/local-first ledger/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/no account required/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/you confirm every change/i)).not.toBeInTheDocument()
-    expect(document.title).toBe('PipSavings — Pip, the AI Personal Finance App')
+    expect(document.title).toBe('PipSavings | Pip, the AI Personal Finance App')
     expect(
       screen.queryByText(/know your money without turning it into a second job/i),
     ).not.toBeInTheDocument()
@@ -182,7 +182,7 @@ describe('Pip landing page', () => {
     renderRoute('/privacy')
 
     expect(screen.getByRole('heading', { level: 1, name: /privacy policy for pipsavings/i })).toBeInTheDocument()
-    expect(document.title).toBe('Privacy Policy — PipSavings')
+    expect(document.title).toBe('Privacy Policy | PipSavings')
     expect(screen.getByRole('tab', { name: /privacy policy/i })).toHaveAttribute('aria-current', 'page')
     expect(screen.getByRole('tab', { name: /terms of use/i })).toHaveAttribute('href', '/terms')
     expect(screen.getByText(/pip does not require an account/i)).toBeInTheDocument()
@@ -195,7 +195,7 @@ describe('Pip landing page', () => {
     renderRoute('/terms')
 
     expect(screen.getByRole('heading', { level: 1, name: /terms of use for pipsavings/i })).toBeInTheDocument()
-    expect(document.title).toBe('Terms of Use — PipSavings')
+    expect(document.title).toBe('Terms of Use | PipSavings')
     expect(screen.getByRole('tab', { name: /terms of use/i })).toHaveAttribute('aria-current', 'page')
     expect(screen.getByRole('tab', { name: /privacy policy/i })).toHaveAttribute('href', '/privacy')
     expect(screen.getByText(/not financial advice/i)).toBeInTheDocument()
@@ -243,7 +243,7 @@ describe('Pip landing page', () => {
     renderRoute('/legal')
 
     expect(screen.getByRole('heading', { level: 1, name: /privacy policy for pipsavings/i })).toBeInTheDocument()
-    expect(document.title).toBe('Privacy Policy — PipSavings')
+    expect(document.title).toBe('Privacy Policy | PipSavings')
   })
 
   it('provides a valid sitemap.xml and robots.txt in the public folder', async () => {

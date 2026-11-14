@@ -39,7 +39,7 @@ function routeHtml(): Plugin {
         fileName: '404.html',
         source: withHead(
           html.replace(/\s*<link rel="canonical"[^>]*>/, ''),
-          { path: '/', title: 'Page not found — PipSavings', description: pageSeo.home.description },
+          { path: '/', title: 'Page not found | PipSavings', description: pageSeo.home.description },
           '    <meta name="robots" content="noindex" />\n  ',
         ),
       })

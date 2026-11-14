@@ -106,7 +106,7 @@ export function ScanDemo() {
     const start = performance.now()
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / SCAN_MS)
-      // Fast start, patient finish — the same shape as the app's progress bar.
+      // Fast start, patient finish, the same shape as the app's progress bar.
       setProgress(Math.round(100 * (1 - Math.pow(1 - t, 2.2))))
       if (t < 1) frame = requestAnimationFrame(tick)
     }

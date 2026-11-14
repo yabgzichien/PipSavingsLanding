@@ -12,24 +12,24 @@ export type PageSeo = {
 export const pageSeo = {
   home: {
     path: '/',
-    title: 'PipSavings — Pip, the AI Personal Finance App',
+    title: 'PipSavings | Pip, the AI Personal Finance App',
     description:
       'PipSavings makes Pip, an AI personal finance app for Android. Scan receipts, track spending, split bills, follow your net worth and ask about your money in plain language.',
   },
   faq: {
     path: '/faq',
-    title: 'PipSavings FAQ — Privacy, AI and Your Data | Pip',
+    title: 'PipSavings FAQ | Privacy, AI and Your Data | Pip',
     description:
       'Answers about PipSavings and the Pip app: where your financial data is stored, when it leaves your phone, Ask Pip, and using your own AI API key.',
   },
   privacy: {
     path: '/privacy',
-    title: 'Privacy Policy — PipSavings',
+    title: 'Privacy Policy | PipSavings',
     description: 'Privacy Policy for PipSavings and the Pip personal finance app for Android.',
   },
   terms: {
     path: '/terms',
-    title: 'Terms of Use — PipSavings',
+    title: 'Terms of Use | PipSavings',
     description: 'Terms of Use for PipSavings and the Pip personal finance app for Android.',
   },
 } satisfies Record<string, PageSeo>
