@@ -240,7 +240,7 @@ function HeroDemo() {
             loop
             muted
             playsInline
-            poster={theme === 'dark' ? '/screens/dark/ask-pip.png' : '/screens/ask-pip.png'}
+            poster={theme === 'dark' ? '/screens/dark/ask-pip.webp' : '/screens/ask-pip.webp'}
             aria-label="Demonstration of Ask Pip responding to a natural language money inquiry with filtered activity"
           >
             <source src={`${videoBase}.webm`} type="video/webm" />
@@ -402,7 +402,7 @@ function FeatureStory() {
         tone="sage"
         media={
           <div className="chat-feature-media">
-            <PhoneFrame src="ask-pip.png" alt="Ask Pip chat screen with suggested money questions" />
+            <PhoneFrame src="ask-pip.webp" alt="Ask Pip chat screen with suggested money questions" />
             <div className="floating-command floating-command--one">Show me this month</div>
             <div className="floating-command floating-command--two">Who owes me?</div>
           </div>
@@ -434,8 +434,8 @@ function FeatureStory() {
         tone="blue"
         media={
           <div className="split-media">
-            <PhoneFrame src="split-bill.png" alt="Receipt items assigned to You, Wen Jie, Zhi Chen or everyone at the table" />
-            <PhoneFrame src="split-totals.png" alt="Bill total with each person's share and options to share or download the split receipt" className="phone-frame--rear" />
+            <PhoneFrame src="split-bill.webp" alt="Receipt items assigned to You, Wen Jie, Zhi Chen or everyone at the table" />
+            <PhoneFrame src="split-totals.webp" alt="Bill total with each person's share and options to share or download the split receipt" className="phone-frame--rear" />
             <div className="people-chip people-chip--a">WJ</div>
             <div className="people-chip people-chip--b">ZC</div>
             <div className="people-chip people-chip--c">You</div>
@@ -450,7 +450,7 @@ function FeatureStory() {
         body="Make a trip with a name and dates, then tag expenses as you go or pull in ones you already logged. Pip adds it up and shows where the money went."
         points={[
           'A total and category breakdown for each trip',
-          'Totals in the trip’s own currency, like SGD or JPY, with Pip Pro',
+          'Totals in the trip’s own currency, like SGD or JPY',
           'Filter your activity by trip, or ask Pip to open it',
         ]}
         tone="sage"
@@ -465,13 +465,14 @@ function FeatureStory() {
         points={[
           'Cash, investments, loans and money owed to you',
           'A six-month net worth curve',
-          'Spending history organized by category',
+          'Every asset and liability in its own card',
         ]}
         media={
-          <div className="double-phone">
+          <div className="double-phone double-phone--trio">
             <MarketBackdrop />
-            <PhoneFrame src="net-worth.png" alt="Pip net worth overview with assets, liabilities and a six-month trend" />
-            <PhoneFrame src="breakdown.png" alt="Monthly transaction breakdown organized by spending category" className="phone-frame--rear" />
+            <PhoneFrame src="net-worth.webp" alt="Pip net worth overview with assets, liabilities and a six-month trend" />
+            <PhoneFrame src="assets.webp" alt="Pip assets screen with cash, bank and illiquid asset cards" className="phone-frame--rear" />
+            <PhoneFrame src="liabilities.webp" alt="Pip liabilities screen with credit card and car loan balances" className="phone-frame--rear phone-frame--rear-right" />
           </div>
         }
       />
@@ -488,7 +489,8 @@ function FeatureStory() {
         reverse
         media={
           <div className="recap-media">
-            <PhoneFrame src="monthly-recap.png" alt="Pip monthly recap showing recorded spending and category breakdown" />
+            <PhoneFrame src="breakdown.webp" alt="Where it goes: monthly transactions organized by spending category" className="phone-frame--rear recap-rear" />
+            <PhoneFrame src="monthly-recap.webp" alt="Pip monthly recap showing recorded spending and category breakdown" />
             <div className="recap-tab"><Sparkles size={15} /> Your month with Pip</div>
           </div>
         }
@@ -511,13 +513,13 @@ function FeatureStory() {
   )
 }
 
-const essentials: { icon: typeof Globe; title: string; body: string; pro?: boolean }[] = [
+const essentials: { icon: typeof Globe; title: string; body: string }[] = [
   { icon: CalendarDays, title: 'Cash-flow calendar', body: 'Money in and out, day by day, so heavy weeks show up early.' },
   { icon: PiggyBank, title: 'Budget envelopes', body: 'Monthly targets per category, with a guided setup.' },
   { icon: Repeat, title: 'Bills and subscriptions', body: 'Rent, utilities and plans in one list, so nothing renews unnoticed.' },
-  { icon: Globe, title: 'Multi-currency', body: 'Record in the currency you paid. Live rates convert the rest.', pro: true },
+  { icon: Globe, title: 'Multi-currency', body: 'Record in the currency you paid. Live rates convert the rest.' },
   { icon: ReceiptText, title: 'Tax relief tracking', body: 'Tag eligible spending to Malaysian relief categories, with each cap shown.' },
-  { icon: FileDown, title: 'Reports and export', body: 'Preview monthly summaries, then export PDF, Excel or CSV.', pro: true },
+  { icon: FileDown, title: 'Reports and export', body: 'Preview monthly summaries, then export PDF, Excel or CSV.' },
   { icon: Smartphone, title: 'Home screen widget', body: 'Your streak and quick-record buttons on your Android home screen.' },
   { icon: CloudUpload, title: 'Google Drive backup', body: 'Optional backups to your own Drive, restored when you switch phones.' },
 ]
@@ -531,10 +533,10 @@ function EverydayEssentials() {
           <h2>Everything else, already there.</h2>
         </div>
         <ul className="essentials__grid">
-          {essentials.map(({ icon: Icon, title, body, pro }, i) => (
+          {essentials.map(({ icon: Icon, title, body }, i) => (
             <li key={title} className="essentials__tile reveal" style={{ transitionDelay: `${(i % 4) * 60}ms` }}>
               <span className="essentials__icon"><Icon size={20} /></span>
-              <strong>{title}{pro && <span className="essentials__pro">Pro</span>}</strong>
+              <strong>{title}</strong>
               <p>{body}</p>
             </li>
           ))}
@@ -547,7 +549,7 @@ function EverydayEssentials() {
 function HabitMedia() {
   return (
     <div className="habit-media">
-      <PhoneFrame src="home.png" alt="Pip home dashboard with a seven-day logging streak and mascot" />
+      <PhoneFrame src="home.webp" alt="Pip home dashboard with a seven-day logging streak and mascot" />
       <div className="streak-card">
         <span>🔥</span>
         <div><strong>7 days</strong><small>and counting</small></div>
@@ -697,7 +699,7 @@ function FaqPage() {
     },
     {
       question: 'Does using my own API key cost extra?',
-      answer: <>Your AI provider sets its own free allowance, usage limits, and prices, and these can change. Any provider charges are tied to your provider account and are separate from Pip Pro. Check the provider’s pricing before using the key heavily.</>,
+      answer: <>Your AI provider sets its own free allowance, usage limits, and prices, and these can change. Any provider charges are tied to your provider account and are separate from Pip, which is free. Check the provider’s pricing before using the key heavily.</>,
     },
     {
       question: 'How do I delete my data and disconnect AI?',

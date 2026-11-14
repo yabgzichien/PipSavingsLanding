@@ -73,7 +73,7 @@ function PrivacyPolicyOriginal() {
   return (
     <div className="legal-document">
       <h1>Privacy Policy for PipSavings</h1>
-      <p className="meta">Last updated: 27 September 2026</p>
+      <p className="meta">Last updated: 6 November 2026</p>
       <p>
         PipSavings (“Pip”) is a personal bookkeeping app for Android. Contact:{' '}
         <a href="mailto:zichienyang@gmail.com">zichienyang@gmail.com</a>. Pip is not directed at children.
@@ -100,11 +100,7 @@ function PrivacyPolicyOriginal() {
         <strong>Scans (optional).</strong> A scan image is sent over HTTPS to our Cloudflare proxy, then to an external AI
         service to extract merchant, date, amount, and category. We do not keep the image. We may cache the extracted JSON
         against a request hash (quota retries). External AI models may use scan images and extracted rows. Pip does not
-        train its own models. A hashed install token is stored to enforce scan limits and promo codes.
-      </p>
-      <p>
-        <strong>Pip Pro.</strong> Google Play handles payment. We never see your card. RevenueCat (and our proxy) receive
-        an anonymous app user ID to confirm Pro.
+        train its own models. A hashed install token is stored to enforce scan limits.
       </p>
       <p>
         <strong>Google Drive backup (optional).</strong> Google Sign-In may provide the <strong>email</strong> of the
@@ -126,8 +122,7 @@ function PrivacyPolicyOriginal() {
 
       <h2>Parties that may receive data</h2>
       <p>
-        Google Play, Google (Drive / Sign-In), Cloudflare, external AI services, Gemini, Groq, OpenRouter, RevenueCat,
-        Sentry, Yahoo Finance.
+        Google Play, Google (Drive / Sign-In), Cloudflare, external AI services, Gemini, Groq, OpenRouter, Sentry, Yahoo Finance.
       </p>
 
       <h2>Deletion</h2>
@@ -147,7 +142,7 @@ function TermsOfUseOriginal() {
   return (
     <div className="legal-document">
       <h1>Terms of Use for PipSavings</h1>
-      <p className="meta">Last updated: 27 September 2026</p>
+      <p className="meta">Last updated: 6 November 2026</p>
       <p>
         PipSavings (“Pip”) is a personal bookkeeping app for Android. By using Pip you agree to these terms. Contact:{' '}
         <a href="mailto:zichienyang@gmail.com">zichienyang@gmail.com</a>.
@@ -170,29 +165,18 @@ function TermsOfUseOriginal() {
         by the provider, not Pip.
       </p>
 
-      <h2>Subscriptions</h2>
-      <p>Pip Pro is an auto-renewing Google Play subscription. A subscription is not required to use the app.</p>
-      <ul>
-        <li>You are charged through your Google account at the price and period shown on the paywall.</li>
-        <li>If a free trial applies, you are charged when it ends unless you cancel first.</li>
-        <li>
-          It <strong>renews automatically</strong> unless you cancel at least 24 hours before the period ends.
-        </li>
-        <li>Cancel in Settings → About → Manage subscription (Google Play or RevenueCat).</li>
-        <li>Restore purchases on the paywall or in Settings if you reinstall on the same Google account.</li>
-        <li>
-          A promo code unlocks Pro on that install only. It is not a Play subscription and does not move to a new phone
-          automatically.
-        </li>
-      </ul>
-      <p>Do not abuse the scan service, share promo codes publicly, or bypass quota or subscription checks.</p>
+      <h2>Free to use</h2>
+      <p>
+        Pip is free. There are no subscriptions, in-app purchases, or paid tiers, and every feature is available to
+        everyone. If you bring your own AI provider key for Ask Pip, the provider may charge you under its own terms.
+      </p>
+      <p>Do not abuse the scan service or bypass its limits.</p>
 
       <h2>“As is”</h2>
       <p>
         Pip is provided <strong>as is</strong>. Totals, rates, scan results, Ask Pip results, and tax tags may be wrong.
         Review any prefilled record before saving it. To the fullest extent permitted by law we are not liable for loss of
-        data, missed tax claims, or other damages. If that limit is unenforceable, our liability is the amount you paid for
-        Pip Pro in the prior 12 months, or RM50, whichever is greater.
+        data, missed tax claims, or other damages. If that limit is unenforceable, our liability is RM50.
       </p>
       <p>You must be 13 or older. These terms are governed by the laws of Malaysia.</p>
 

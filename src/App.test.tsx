@@ -200,7 +200,7 @@ describe('Pip landing page', () => {
     expect(screen.getByRole('tab', { name: /privacy policy/i })).toHaveAttribute('href', '/privacy')
     expect(screen.getByText(/not financial advice/i)).toBeInTheDocument()
     expect(screen.getByText(/not tax advice/i)).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: /subscriptions/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /free to use/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /“as is”/i })).toBeInTheDocument()
   })
 
@@ -236,7 +236,7 @@ describe('Pip landing page', () => {
     expect(dark.map((img) => img.getAttribute('src'))).toEqual(
       light.map((img) => img.getAttribute('src')!.replace('/screens/', '/screens/dark/')),
     )
-    expect(light.map((img) => img.getAttribute('src'))).toContain('/screens/split-bill.png')
+    expect(light.map((img) => img.getAttribute('src'))).toContain('/screens/split-bill.webp')
   })
 
   it('redirects /legal to /privacy', () => {

@@ -880,9 +880,41 @@ h3 {
   filter: saturate(0.88);
 }
 
+.double-phone--trio {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.double-phone--trio .phone-frame {
+  grid-area: 1 / 1;
+  justify-self: center;
+}
+
+.double-phone--trio .phone-frame:first-of-type {
+  margin-right: 0;
+  z-index: 2;
+}
+
+.double-phone--trio .phone-frame--rear {
+  left: 0;
+  width: 250px;
+}
+
+.double-phone--trio .phone-frame--rear-right {
+  left: auto;
+  right: 0;
+  transform: rotate(7deg) translateY(18px);
+}
+
+.recap-media .recap-rear {
+  left: auto;
+  right: -50%;
+  top: 8%;
+  transform: rotate(7deg);
+}
+
 .recap-media {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   transform: rotate(2deg);
   transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -1917,6 +1949,16 @@ h3 {
 
   .double-phone .phone-frame:first-of-type {
     margin-right: -2%;
+  }
+
+  .double-phone--trio .phone-frame--rear {
+    left: -9%;
+    width: 200px;
+  }
+
+  .double-phone--trio .phone-frame--rear-right {
+    left: auto;
+    right: -9%;
   }
 
   .floating-command--one {
@@ -3207,15 +3249,6 @@ h3 {
   letter-spacing: -0.01em;
 }
 
-.essentials__pro {
-  padding: 2px 7px;
-  border-radius: 999px;
-  background: var(--forest);
-  color: #fff;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-}
-
 .essentials__tile p {
   margin: 8px 0 0;
   color: var(--muted);
@@ -3372,10 +3405,6 @@ h3 {
 
 :root[data-theme='dark'] .essentials__icon {
   background: rgba(255, 255, 255, 0.08);
-}
-
-:root[data-theme='dark'] .essentials__pro {
-  color: #000;
 }
 
 /* Net worth: faint market backdrop */
